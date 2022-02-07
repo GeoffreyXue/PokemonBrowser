@@ -1,0 +1,50 @@
+﻿@page
+@model PokemonBrowser.Pages.PokemonModel
+
+@{
+    ViewData["Title"] = "Pokemon";
+}
+
+<h1>View All Pokemon</h1>
+
+<hr />
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        Current Pokemon List
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pokemon in Model.Pokemons)
+                {
+                <tr>
+                    <td>
+                        @pokemon.Name
+                    </td>
+                    <td>
+                        @pokemon.Url
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        @if (Model.NextURL != string.Empty)
+        {
+            <form asp-page-nextURL=@Model.NextURL method="get"><button class="btn btn-primary">Get more Pokemon</button></form>
+        }
+        else
+        {
+            <form method="get"><button class="btn btn-primary">Get more Pokemon</button></form>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
